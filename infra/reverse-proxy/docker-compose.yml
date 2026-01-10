@@ -1,6 +1,7 @@
 services:
   traefik:
     image: traefik:v3.6
+    container_name: traefik
     ports:
       - "80:80"
       - "443:443"
@@ -11,7 +12,7 @@ services:
     command:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=proxy"
+      - "--providers.docker.network=traefik-proxy"
       - "--entrypoints.web.address=:80"
       - "--api.insecure=true"                 # Sets up dashboard :8080
     volumes:
