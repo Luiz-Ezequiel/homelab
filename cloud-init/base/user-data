@@ -1,0 +1,35 @@
+#cloud-config
+
+ssh_pwauth: false
+disable_root: true
+
+users:
+  - name: sysadmin
+    gecos: User made for configuring the system
+    groups: [users, sudo, adm]
+    lock_passwd: true
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGgQXVf/XXz3md59NpVwoiRiMUS7tML9qOOUu7neIlCM luiz@tower
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+
+runcmd:
+  - systemctl enable ssh
+  - systemctl start ssh
+
+
+locale: en_US.UTF-8
+timezone: America/Sao_Paulo
+
+final_message: |
+  cloud-init has finished
+  version: $version
+  timestamp: $timestamp
+  datasource: $datasource
+  uptime: $uptime
