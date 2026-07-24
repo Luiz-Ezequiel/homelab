@@ -32,7 +32,7 @@ log:
 certificatesResolvers:
   le:
     acme:
-      email: <email>
+      email: ezequiel.luizedu@gmail.com
       storage: /letsencrypt/acme.json
       dnsChallenge:
         provider: duckdns
