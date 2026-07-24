@@ -1,0 +1,38 @@
+entrypoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entrypoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: le
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: proxy
+
+  file:
+    filename: /dynamic/tls.yaml
+
+api:
+  dashboard: true
+  insecure: false
+
+log:
+  level: INFO
+
+certificatesResolvers:
+  le:
+    acme:
+      email: <email>
+      storage: /letsencrypt/acme.json
+      dnsChallenge:
+        provider: duckdns
